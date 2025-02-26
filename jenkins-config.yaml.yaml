@@ -90,6 +90,8 @@ tool:
   maven:
     installations:
       - name: Maven
-        installers:
-          - maven:
-              id: 3.9.9
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: 3.9.9
