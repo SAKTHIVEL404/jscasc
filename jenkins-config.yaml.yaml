@@ -1,0 +1,102 @@
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              id: "gitcredentials"
+              password: "${JENKINS_GIT_PASSWORD}"
+              scope: GLOBAL
+              username: "muzzammil2899@gmail.com"
+          - aws:
+              accessKey: "${JENKINS_AWS_ACCESS_KEY}"
+              id: "aws-credentials"
+              scope: GLOBAL
+              secretKey: "${JENKINS_AWS_SECRET_KEY}"
+jenkins:
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  labelAtoms:
+    - name: "built-in"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodeMonitors:
+    - "architecture"
+    - "clock"
+    - diskSpace:
+        freeSpaceThreshold: "1GiB"
+        freeSpaceWarningThreshold: "2GiB"
+    - "swapSpace"
+    - tmpSpace:
+        freeSpaceThreshold: "1GiB"
+        freeSpaceWarningThreshold: "2GiB"
+    - "responseTime"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: -1
+  updateCenter:
+    sites:
+      - id: "default"
+        url: "https://updates.jenkins.io/update-center.json"
+  views:
+    - all:
+        name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+appearance:
+  pipelineGraphView:
+    showGraphOnBuildPage: false
+    showGraphOnJobPage: false
+  themeManager:
+    disableUserThemes: false
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+      - "jobBuildDiscarder"
+  email-ext:
+    charset: "UTF-8"
+    defaultBody: |
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+      Check console output at $BUILD_URL to view the results.
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://localhost:8080/"
+tool:
+  git:
+    installations:
+      - home: "C:\\Program Files\\Git\\bin\\git.exe"
+        name: "Default"
+  maven:
+    installations:
+      - name: "Maven"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.9.9"
