@@ -7,7 +7,7 @@ credentials:
               password: "${JENKINS_GIT_PASSWORD}"
               scope: GLOBAL
               username: "muzzammil2899@gmail.com"
-          - aws:
+          - awsCredentials:
               accessKey: "${JENKINS_AWS_ACCESS_KEY}"
               id: "aws-credentials"
               scope: GLOBAL
@@ -86,17 +86,15 @@ unclassified:
     storage: "file"
   location:
     adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://localhost:8080/"
+    url: "http://localhost:8080"
 tool:
   git:
     installations:
-      - home: "C:\\Program Files\\Git\\bin\\git.exe"
-        name: "Default"
+      - name: "Default"
+        home: "C:\\Program Files\\Git\\bin\\git.exe"
   maven:
     installations:
       - name: "Maven"
-        properties:
-          - installSource:
-              installers:
-                - maven:
-                    id: "3.9.9"
+        installers:
+          - maven:
+              id: "3.9.9"
