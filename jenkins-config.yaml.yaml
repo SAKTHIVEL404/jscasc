@@ -7,11 +7,6 @@ credentials:
               password: ${JENKINS_GIT_PASSWORD}
               scope: GLOBAL
               username: muzzammil2899@gmail.com
-          - aws:
-              accessKey: ${JENKINS_AWS_ACCESS_KEY}
-              id: aws-credentials
-              scope: GLOBAL
-              secretKey: ${JENKINS_AWS_SECRET_KEY}
 jenkins:
   agentProtocols:
     - JNLP4-connect
@@ -95,8 +90,6 @@ tool:
   maven:
     installations:
       - name: Maven
-        properties:
-          - installSource:
-              installers:
-                - maven:
-                    id: 3.9.9
+        installers:
+          - maven:
+              id: 3.9.9
