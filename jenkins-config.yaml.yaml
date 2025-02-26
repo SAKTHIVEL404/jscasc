@@ -7,11 +7,12 @@ credentials:
               password: "${JENKINS_GIT_PASSWORD}"
               scope: GLOBAL
               username: "muzzammil2899@gmail.com"
-          - awsCredentials:
+          - aws:
               accessKey: "${JENKINS_AWS_ACCESS_KEY}"
               id: "aws-credentials"
               scope: GLOBAL
               secretKey: "${JENKINS_AWS_SECRET_KEY}"
+
 jenkins:
   agentProtocols:
     - "JNLP4-connect"
@@ -54,16 +55,19 @@ jenkins:
     - all:
         name: "all"
   viewsTabBar: "standard"
+
 globalCredentialsConfiguration:
   configuration:
     providerFilter: "none"
     typeFilter: "none"
+
 appearance:
   pipelineGraphView:
     showGraphOnBuildPage: false
     showGraphOnJobPage: false
   themeManager:
     disableUserThemes: false
+
 security:
   apiToken:
     creationOfLegacyTokenEnabled: false
@@ -71,6 +75,7 @@ security:
     usageStatisticsEnabled: true
   sSHD:
     port: -1
+
 unclassified:
   buildDiscarders:
     configuredBuildDiscarders:
@@ -86,7 +91,8 @@ unclassified:
     storage: "file"
   location:
     adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://localhost:8080"
+    url: "http://localhost:8080/"
+
 tool:
   git:
     installations:
@@ -95,6 +101,8 @@ tool:
   maven:
     installations:
       - name: "Maven"
-        installers:
-          - maven:
-              id: "3.9.9"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.9.9"
