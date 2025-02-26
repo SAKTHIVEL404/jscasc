@@ -1,66 +1,35 @@
-
 jenkins:
+  systemMessage: "Welcome to Jenkins configured with JCasC!"
+  numExecutors: 2
   securityRealm:
     local:
+      allowsSignup: false
       users:
-        - id: "sakthivel"  # The username for Jenkins login
-          password: "$2a$10$2JzEj5N1uH0P7CjBz9O7p.xHgVt5hCmZmDzB8kR7.6quvjd5uZLji"  # Hashed password (replace with actual hash in production)
-          name: "SAKTHIVEL G"  # Full name of the user
-
-  authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false  # Disallow anonymous read access
-
-  tools:
-    jdk:
-      installations:
-        - name: "jdk1.8"
-          home: "/usr/lib/jvm/java-8-openjdk-amd64"  # Path to JDK 1.8 (adjust as needed)
-
-  quietPeriod: 5  # Delay between job creation and job execution (in seconds)
-  numExecutors: 2  # Number of executors on the Jenkins master
-  mode: NORMAL  # Run jobs with a distributed executor model
-  systemMessage: "Jenkins is configured through JCasC"  # System message shown on Jenkins dashboard
-
-jobs:
-  - script: |
-      pipelineJob('Backend-CICD') {
+        - id: "admin"
+          password: "admin"
+  authorizationStrategy: "loggedInUsersCanDoAnything"
+  jobs:
+    - script: >
+        pipelineJob('test-job') {
           definition {
-              cpsScm {
-                  scm {
-                      git {
-                          remote {
-                              url('https://github.com/SAKTHIVEL404/backend.git')  # Private repository URL
-                              credentialsId('d72a57cf-f755-4d2e-a4dd-2735360ebf28')  # Your credentials ID
-                          }
-                          branch('springboot')  # Branch to build
+            cps {
+              script("""
+                pipeline {
+                  agent any
+                  stages {
+                    stage('Build') {
+                      steps {
+                        sh 'echo Hello, Jenkins!'
                       }
+                    }
                   }
-                  scriptPath('Jenkinsfile')  # Path to the Jenkinsfile in the repo
-              }
+                }
+              """.stripIndent())
+            }
           }
-          triggers {
-              scm('H/5 * * * *')  # Poll every 5 minutes
-          }
-      }
-
-  - script: |
-      pipelineJob('Frontend-CICD') {
-          definition {
-              cpsScm {
-                  scm {
-                      git {
-                          remote {
-                              url('https://github.com/SAKTHIVEL404/frontend.git')  # Private repository URL
-                              credentialsId('d72a57cf-f755-4d2e-a4dd-2735360ebf28')  # Your credentials ID
-                          }
-                          branch('react_app')  # Branch to build
-                      }
-                  }
-                  scriptPath('Jenkinsfile')  # Path to the Jenkinsfile in the repo
-              }
-          }
-          triggers {
-              scm('H/5 * * * *')  # Poll every 5 minutes
-          }
-      }
+        }
+tool:
+  git:
+    installations:
+      - name: "Default"
+        home: "/usr/bin/git"
